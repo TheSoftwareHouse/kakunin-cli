@@ -1,0 +1,44 @@
+{
+  "name": "kakunin-cli",
+  "version": "1.0.0",
+  "description": "Command-line interface for Kakunin E2E framework",
+  "homepage": "https://thesoftwarehouse.github.io/Kakunin/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheSoftwareHouse/kakunin-cli.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "The Software House",
+    "url": "http://tsh.io"
+  },
+  "contributors": [
+    {
+      "name": "Józef Szymala"
+    }
+  ],
+  "main": "./dist/index.js",
+  "bin": {
+    "kakunin-cli": "./dist/src/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/latest-version": "^4.0.0",
+    "@types/mkdirp": "^0.5.2",
+    "@types/open": "0.0.29",
+    "@types/shelljs": "^0.8.2",
+    "@types/yargs": "^12.0.8",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.1",
+    "latest-version": "^3.1.0",
+    "mkdirp": "^0.5.1",
+    "open": "0.0.5",
+    "shelljs": "^0.8.3",
+    "yargs": "^12.0.5"
+  }
+}
