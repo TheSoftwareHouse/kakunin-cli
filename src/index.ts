@@ -2,7 +2,6 @@
 import * as yargs from 'yargs';
 import { initProject as createProject, initProjectHere as createProjectHere } from './create-project';
 import { openDocs as docs } from './docs';
-
 yargs
   .usage('Usage: kak-cli <command>')
   .version()
