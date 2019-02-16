@@ -1,13 +1,10 @@
 import * as latestVersion from 'latest-version';
 import { execSync } from 'child_process';
-
 import * as shell from 'shelljs'
 import * as mkdirp from 'mkdirp';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as templatePackageJson from '../template/package.json';
-
-
 
 const generateProjectPath = (name :string) => path.join(process.cwd(), `${name}`)
 
