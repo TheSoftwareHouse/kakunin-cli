@@ -1,5 +1,8 @@
+# travis version build  
+[![Build Status](https://travis-ci.com/joszo/kakunin-cli.svg?branch=next)](https://travis-ci.com/joszo/kakunin-cli)
+
 # kakunin-cli
-CLI tool for Kakunin
+CLI tool for Kakunin 
 
 # kakunin cli commands
 `kakunin-cli help` Show help  
