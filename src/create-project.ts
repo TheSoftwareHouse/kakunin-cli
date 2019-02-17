@@ -48,7 +48,7 @@ const createPackageJsonHere = (name: string) => {
   });
 };
 
-export const initProject = (directory: string) => (ver: string) => {
+export const initProject = (directory: string) => (ver: string | undefined) => {
   if (typeof ver !== 'undefined') {
     templatePackageJson.dependencies.kakunin = ver;
     createPackageJson(directory);
@@ -60,7 +60,8 @@ export const initProject = (directory: string) => (ver: string) => {
     });
   }
 };
-export const initProjectHere = (name: string) => (ver: string) => {
+
+export const initProjectHere = (name: string) => (ver: string | undefined) => {
   if (typeof ver !== 'undefined') {
     templatePackageJson.dependencies.kakunin = ver;
     createPackageJsonHere(name);

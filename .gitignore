@@ -1,8 +1,15 @@
-#build files
+# build files
 dist
 
 # dependencies
 node_modules
 
-#tests
+# logs
+logs
+*.log
+npm-debug.log*
+
+# tests
 .DS_Store
+.vscode
+
