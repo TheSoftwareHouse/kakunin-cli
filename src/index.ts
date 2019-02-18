@@ -1,48 +1,48 @@
 #!/usr/bin/env node
 import * as yargs from 'yargs';
-import { initProject as createProject, initProjectHere as createProjectHere } from './create-project';
+import { createProject } from './handlers/create-project';
 import { openDocs as docs } from './docs';
+import * as latestVersion from 'latest-version';
 
 // tslint:disable-next-line
 yargs
-  .usage('Usage: kak-cli <command>')
+  .usage('Usage: kakunin-cli <command>')
   .version()
   .command(
-    ['create-project <dir> [version]', 'cp <dir> [version]'],
+    ['create-project <name>', 'cp <name>'],
     'Create a new kakunin project in desired directory with optional kakunin version, default latest',
     (args: yargs.Argv) => {
       return yargs
-        .option('dir', {
-          demandOption: true,
-          string: true,
-        })
-        .option('version', {
-          demandOption: false,
-          string: true,
-        });
-    },
-    argv => {
-      console.log(`Starting to create new kakuknin project. This will take a while.`);
-      createProject(argv.dir)(argv.version);
-    }
-  )
-  .command(
-    ['create-project-here <name> [version]', 'cph <name> [version]'],
-    'Create a new kakunin project in present directory with optional kakunin version, default latest',
-    (args: yargs.Argv) => {
-      return yargs
         .option('name', {
+          describe: 'Name of your project',
           demandOption: true,
           string: true,
         })
-        .option('version', {
+        .option('dir', {
+          alias: 'd',
+          describe: 'Directory where you want to create your project e.g /users/example/nameOfProject',
+          demandOption: false,
+          string: true,
+        })
+        .option('kakunin', {
+          alias: 'k',
+          describe: ' Version of kakunin which you want to use in your project e.g. 2.3.0',
           demandOption: false,
           string: true,
         });
     },
-    argv => {
+    async argv => {
       console.log(`Starting to create new kakuknin project. This will take a while.`);
-      createProjectHere(argv.name)(argv.version);
+      console.log(argv);
+      console.log(argv.kakunin);
+
+      const version = argv.kakunin || (await latestVersion('kakunin'));
+
+      createProject({
+        name: argv.name,
+        dir: argv.dir,
+        version,
+      });
     }
   )
   // tslint:disable-next-line
