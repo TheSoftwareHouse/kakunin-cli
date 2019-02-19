@@ -33,9 +33,6 @@ yargs
     },
     async argv => {
       console.log(`Starting to create new kakuknin project. This will take a while.`);
-      console.log(argv);
-      console.log(argv.kakunin);
-
       const version = argv.kakunin || (await latestVersion('kakunin'));
 
       createProject({
