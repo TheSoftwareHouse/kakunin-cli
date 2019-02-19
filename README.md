@@ -4,8 +4,7 @@
 # kakunin-cli
 CLI tool for Kakunin 
 
-# kakunin cli commands
+# kakunin-cli commands
+`kakunin-cli create-project` Create a new kakunin project in desired directory with optional kakunin version. Default version is latest [aliases: cp]  
+`kakunin-cli docs` Open kakunin documentation [aliases: d, documentation]  
 `kakunin-cli help` Show help  
-`kakunin-cli create-project` Create a new kakunin project in desired directory with optional kakunin version, default latest [aliases: cp]  
-`kakunin-cli create-project-here` Create a new kakunin project in present directory with optional kakunin version, default latest [aliases: cph]  
-`kakunin-cli docs`  Go to the documentation at https://kakunin.io [aliases: d, documentation]  

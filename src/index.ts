@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import * as yargs from 'yargs';
-import { createProject } from './handlers/create-project';
+import { createProject } from './create-project';
 import { openDocs as docs } from './docs';
 import * as latestVersion from 'latest-version';
+import { green, bold, underline } from 'colors';
 
 // tslint:disable-next-line
 yargs
@@ -10,10 +11,11 @@ yargs
   .version()
   .command(
     ['create-project <name>', 'cp <name>'],
-    'Create a new kakunin project in desired directory with optional kakunin version, default latest',
+    'Create a new kakunin project in desired directory with optional kakunin version. Default version is latest.',
     (args: yargs.Argv) => {
       return yargs
         .option('name', {
+          alias: 'a',
           describe: 'Name of your project',
           demandOption: true,
           string: true,
@@ -26,24 +28,23 @@ yargs
         })
         .option('kakunin', {
           alias: 'k',
-          describe: ' Version of kakunin which you want to use in your project e.g. 2.3.0',
+          describe: 'Version of kakunin which you want to use in your project e.g. 2.3.0',
           demandOption: false,
           string: true,
         });
     },
     async argv => {
-      console.log(`Starting to create new kakuknin project. This will take a while.`);
+      console.log(underline(bold(green(`Starting to create new kakuknin project. This will take a while.`))));
       const version = argv.kakunin || (await latestVersion('kakunin'));
 
       createProject({
-        name: argv.name,
-        dir: argv.dir,
+        ...argv,
         version,
       });
     }
   )
   // tslint:disable-next-line
-  .command(['docs', 'd', 'documentation'], 'Go to the documentation at https://kakunin.io', (): any => {}, docs)
+  .command(['docs', 'd', 'documentation'], 'Open kakunin documentation', (): any => {}, docs)
   .help('?')
   .alias('?', 'help')
-  .epilogue('For more information, find the documentation at https://kakunin.io').argv;
+  .epilogue('For more information, visit kakunin page https://kakunin.io').argv;
