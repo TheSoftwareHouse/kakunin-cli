@@ -3,8 +3,7 @@ import * as yargs from 'yargs';
 import { createProject, versionExist } from './create-project';
 import { openDocs as docs } from './docs';
 import * as latestVersion from 'latest-version';
-import { red, yellow, green, bold, underline } from 'colors';
-
+import chalk from 'chalk';
 // tslint:disable-next-line
 yargs
   .usage('Usage: kakunin-cli <command>')
@@ -34,7 +33,7 @@ yargs
         });
     },
     async argv => {
-      console.log(underline(bold(green(`Starting to create new kakuknin project. This will take a while.`))));
+      console.log(chalk.inverse.green.bold(`Starting to create new kakuknin project. This will take a while.`));
 
       let version = argv.kakunin;
 
@@ -44,10 +43,12 @@ yargs
           version,
         })) === true
       ) {
-        console.log(green(`Kakunin version: ${version} exists`));
+        console.log(chalk.green(`Kakunin version: ${version} exists`));
       } else {
         console.log(
-          yellow(`Kakunin version: ${red(version)} was not defined or not exists, the latest version will be used`)
+          chalk.yellow(
+            `Kakunin version: ${chalk.red(version)} was not defined or not exists, the latest version will be used`
+          )
         );
 
         version = await latestVersion('kakunin');

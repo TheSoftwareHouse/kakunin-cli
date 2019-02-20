@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
-import { green } from 'colors';
+import chalk from 'chalk';
 import fetch from 'node-fetch';
 import * as templatePackageJson from '../template/package.json';
 
@@ -37,12 +37,12 @@ export const createProject = (config: ProjectConfig) => {
   const kakuninConfigPath = !config.dir ? resolve(process.cwd(), config.name) : resolve(config.dir, config.name);
 
   mkdirSync(kakuninConfigPath, { recursive: true });
-  console.log(green('Preparing package.json...'));
+  console.log(chalk.green('Preparing package.json...'));
   writeFileSync(resolve(kakuninConfigPath, 'package.json'), JSON.stringify(createPackageJson(config)));
 
-  console.log(green('Project initializing...'));
+  console.log(chalk.green('Project initializing...'));
 
   execSync(`cd ${kakuninConfigPath} && npm i && npm run kakunin init`, { stdio: 'inherit' });
 
-  console.log(green('Project ready.'));
+  console.log(chalk.inverse.green.bold('Project ready.'));
 };
