@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import * as yargs from 'yargs';
-import { createProject } from './create-project';
+import { createProject, versionExist } from './create-project';
 import { openDocs as docs } from './docs';
 import * as latestVersion from 'latest-version';
-import { green, bold, underline } from 'colors';
+import { red, yellow, green, bold, underline } from 'colors';
 
 // tslint:disable-next-line
 yargs
@@ -15,7 +15,7 @@ yargs
     (args: yargs.Argv) => {
       return yargs
         .option('name', {
-          alias: 'a',
+          alias: 'n',
           describe: 'Name of your project',
           demandOption: true,
           string: true,
@@ -35,7 +35,23 @@ yargs
     },
     async argv => {
       console.log(underline(bold(green(`Starting to create new kakuknin project. This will take a while.`))));
-      const version = argv.kakunin || (await latestVersion('kakunin'));
+
+      let version = argv.kakunin;
+
+      if (
+        (await versionExist({
+          ...argv,
+          version,
+        })) === true
+      ) {
+        console.log(green(`Kakunin version: ${version} exists`));
+      } else {
+        console.log(
+          yellow(`Kakunin version: ${red(version)} was not defined or not exists, the latest version will be used`)
+        );
+
+        version = await latestVersion('kakunin');
+      }
 
       createProject({
         ...argv,
