@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": false,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "removeComments": false
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "dist/**"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
