@@ -11,11 +11,11 @@ interface ProjectConfig {
   version?: string;
 }
 
-export const versionExist = (config: ProjectConfig) => {
+export const versionExist = (version: string) => {
   return fetch(`http://registry.npmjs.org/kakunin`)
     .then(res => res.json())
     .then(body => {
-      return {}.hasOwnProperty.call(body.time, config.version);
+      return {}.hasOwnProperty.call(body.time, version);
     })
     .then(exists => exists);
 };

@@ -35,24 +35,8 @@ yargs
     async argv => {
       console.log(chalk.inverse.green.bold(`Starting to create new kakuknin project. This will take a while.`));
 
-      let version = argv.kakunin;
-
-      if (
-        (await versionExist({
-          ...argv,
-          version,
-        })) === true
-      ) {
-        console.log(chalk.green(`Kakunin version: ${version} exists`));
-      } else {
-        console.log(
-          chalk.yellow(
-            `Kakunin version: ${chalk.red(version)} was not defined or not exists, the latest version will be used`
-          )
-        );
-
-        version = await latestVersion('kakunin');
-      }
+      const exists = argv.kakunin ? await versionExist(argv.kakunin) : false;
+      const version = exists ? argv.kakunin : await latestVersion('kakunin');
 
       createProject({
         ...argv,
