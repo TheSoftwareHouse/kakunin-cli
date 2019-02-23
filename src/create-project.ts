@@ -3,7 +3,8 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import * as templatePackageJson from '../template/package.json';
+import * as legacyKakunin from '../template/legacyKakunin/package.json';
+import * as kakunin from '../template/kakunin/package.json';
 
 interface ProjectConfig {
   name: string;
@@ -12,7 +13,7 @@ interface ProjectConfig {
 }
 
 export const versionExist = (version: string) => {
-  return fetch(`http://registry.npmjs.org/kakunin`)
+  return fetch('http://registry.npmjs.org/kakunin')
     .then(res => res.json())
     .then(body => {
       return {}.hasOwnProperty.call(body.time, version);
@@ -21,6 +22,7 @@ export const versionExist = (version: string) => {
 };
 
 const createPackageJson = (config: ProjectConfig) => {
+  const templatePackageJson = config.version < '3.0.0' ? legacyKakunin : kakunin;
   const templatePackakgeJsonString = JSON.stringify(templatePackageJson);
   const packageJson = JSON.parse(templatePackakgeJsonString);
 
