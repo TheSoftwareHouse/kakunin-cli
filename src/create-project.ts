@@ -21,7 +21,7 @@ export const versionExist = (version: string) => {
     .then(exists => exists);
 };
 
-const createPackageJson = (config: ProjectConfig) => {
+export const createPackageJson = (config: ProjectConfig) => {
   const templatePackageJson = config.version < '3.0.0' ? legacyKakunin : kakunin;
   const templatePackakgeJsonString = JSON.stringify(templatePackageJson);
   const packageJson = JSON.parse(templatePackakgeJsonString);
