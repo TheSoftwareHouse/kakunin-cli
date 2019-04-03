@@ -3,8 +3,7 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import * as legacyKakunin from '../template/legacyKakunin/package.json';
-import * as kakunin from '../template/kakunin/package.json';
+import { selectPackageJson } from './handlers/versionManager';
 
 interface ProjectConfig {
   name: string;
@@ -22,8 +21,7 @@ export const versionExist = (version: string) => {
 };
 
 export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackageJson = config.version < '3.0.0' ? legacyKakunin : kakunin;
-  const templatePackakgeJsonString = JSON.stringify(templatePackageJson);
+  const templatePackakgeJsonString = JSON.stringify(selectPackageJson(config.version));
   const packageJson = JSON.parse(templatePackakgeJsonString);
 
   packageJson.name = config.name.toLowerCase();
