@@ -3,7 +3,7 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import { selectPackageJson } from './handlers/versionManager';
+import { getVersionConfig } from './handlers/versionManager';
 
 interface ProjectConfig {
   name: string;
@@ -21,7 +21,7 @@ export const versionExist = (version: string) => {
 };
 
 export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackakgeJsonString = JSON.stringify(selectPackageJson(config.version));
+  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version).config('packageJson'));
   const packageJson = JSON.parse(templatePackakgeJsonString);
 
   packageJson.name = config.name.toLowerCase();
