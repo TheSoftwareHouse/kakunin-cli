@@ -1,26 +1,28 @@
-class Version300 {
-  public isSatisfiedBy(name: string) {
-    return name >= '3.0.0';
+import { basePackageJSON } from '../basePackageJson';
+import * as compareVersions from 'compare-versions';
+
+export class Version300 {
+  public isSatisfiedBy(version: string) {
+    if( compareVersions(version, '3.0.0') >= 0 ) {
+      return true;
+    }
+    return false;
   }
 
-  public config(name: string) {
-    const packageJson = {
-      name: 'your-app-name',
-      version: '1.0.0',
-      description: '',
-      main: 'index.js',
-      scripts: {
-        kakunin: 'cross-env NODE_ENV=prod kakunin',
+  public create(name: string) {
+    const config = {
+      packageJson: {
+        ...basePackageJSON,
+        name: name,
+        version: '3.0.0',
+        dependencies: {
+          'cross-env': '^5.2.0',
+          kakunin: 'latest',
+        },
       },
-      author: '',
-      license: 'ISC',
-      dependencies: {
-        'cross-env': '^5.2.0',
-        kakunin: 'latest',
-      },
+      type: '',
     };
-    return name === 'packageJson' ? packageJson : null;
+
+    return config;
   }
 }
-
-export const version_3_0_0 = new Version300();

@@ -1,8 +1,13 @@
-import { version_2_6_1 } from '../../template/2.6.1/version_2_6_1';
-import { version_3_0_0 } from '../../template/3.0.0/version_3_0_0';
+import { Version261 } from '../../template/2.6.1/version_2_6_1';
+import { Version300 } from '../../template/3.0.0/version_3_0_0';
 
-const availableVersions = [version_2_6_1, version_3_0_0];
+const availableVersions = [new Version261(), new Version300()];
 
-export const getVersionConfig = (name: string) => {
-  return availableVersions.find(version => version.isSatisfiedBy(name));
+export const getVersionConfig = (version: string, name: string) => {
+  try {
+    const matchingConfig = availableVersions.find(pacakgeVersion => pacakgeVersion.isSatisfiedBy(version));
+    return matchingConfig.create(name);
+  } catch {
+    throw new Error(`No matching version for ${version}`);
+  }
 };

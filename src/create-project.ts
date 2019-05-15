@@ -21,14 +21,12 @@ export const versionExist = (version: string) => {
 };
 
 export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version).config('packageJson'));
+  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version, 'my-super-app').packageJson);
   const packageJson = JSON.parse(templatePackakgeJsonString);
-
   packageJson.name = config.name.toLowerCase();
   if (!config.version) {
     return packageJson;
   }
-
   packageJson.dependencies.kakunin = config.version;
   return packageJson;
 };
