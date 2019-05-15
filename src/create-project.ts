@@ -20,23 +20,15 @@ export const versionExist = (version: string) => {
     .then(exists => exists);
 };
 
-export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version, config.name).packageJson);
-  const packageJson = JSON.parse(templatePackakgeJsonString);
-  packageJson.name = config.name.toLowerCase();
-  if (!config.version) {
-    return packageJson;
-  }
-  packageJson.dependencies.kakunin = config.version;
-  return packageJson;
-};
-
 export const createProject = (config: ProjectConfig) => {
   const kakuninConfigPath = !config.dir ? resolve(process.cwd(), config.name) : resolve(config.dir, config.name);
 
   mkdirSync(kakuninConfigPath, { recursive: true });
   console.log(chalk.green('Preparing package.json...'));
-  writeFileSync(resolve(kakuninConfigPath, 'package.json'), JSON.stringify(createPackageJson(config)));
+  writeFileSync(
+    resolve(kakuninConfigPath, 'package.json'),
+    JSON.stringify(getVersionConfig(config.version, config.name).packageJson)
+  );
 
   console.log(chalk.green('Project initializing...'));
 
