@@ -21,7 +21,7 @@ export const versionExist = (version: string) => {
 };
 
 export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version, 'my-super-app').packageJson);
+  const templatePackakgeJsonString = JSON.stringify(getVersionConfig(config.version, config.name).packageJson);
   const packageJson = JSON.parse(templatePackakgeJsonString);
   packageJson.name = config.name.toLowerCase();
   if (!config.version) {
