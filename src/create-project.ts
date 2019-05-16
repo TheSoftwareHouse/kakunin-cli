@@ -3,8 +3,7 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import * as legacyKakunin from '../template/legacyKakunin/package.json';
-import * as kakunin from '../template/kakunin/package.json';
+import { getVersionConfig } from './handlers/versionManager';
 
 interface ProjectConfig {
   name: string;
@@ -21,26 +20,15 @@ export const versionExist = (version: string) => {
     .then(exists => exists);
 };
 
-export const createPackageJson = (config: ProjectConfig) => {
-  const templatePackageJson = config.version < '3.0.0' ? legacyKakunin : kakunin;
-  const templatePackakgeJsonString = JSON.stringify(templatePackageJson);
-  const packageJson = JSON.parse(templatePackakgeJsonString);
-
-  packageJson.name = config.name.toLowerCase();
-  if (!config.version) {
-    return packageJson;
-  }
-
-  packageJson.dependencies.kakunin = config.version;
-  return packageJson;
-};
-
 export const createProject = (config: ProjectConfig) => {
   const kakuninConfigPath = !config.dir ? resolve(process.cwd(), config.name) : resolve(config.dir, config.name);
 
   mkdirSync(kakuninConfigPath, { recursive: true });
   console.log(chalk.green('Preparing package.json...'));
-  writeFileSync(resolve(kakuninConfigPath, 'package.json'), JSON.stringify(createPackageJson(config)));
+  writeFileSync(
+    resolve(kakuninConfigPath, 'package.json'),
+    JSON.stringify(getVersionConfig(config.version, config.name).packageJson)
+  );
 
   console.log(chalk.green('Project initializing...'));
 

@@ -17,7 +17,7 @@
       "name": "Józef Szymala"
     }
   ],
-  "main": "./dist/index.js",
+  "main": "./dist/src/index.js",
   "bin": {
     "kakunin-cli": "./dist/src/index.js"
   },
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
+    "compare-versions": "^3.4.0",
     "jest": "^24.1.0",
     "latest-version": "^3.1.0",
     "node-fetch": "^2.3.0",
@@ -69,6 +70,10 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   }
 }
