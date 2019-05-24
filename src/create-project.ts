@@ -3,7 +3,8 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import { getVersionConfig } from './handlers/versionManager';
+import { getVersionConfig } from './handlers/version-manager';
+import { prepareStepDefinitions } from './handlers/prepare-step-definitions';
 
 interface ProjectConfig {
   name: string;
@@ -33,6 +34,8 @@ export const createProject = (config: ProjectConfig) => {
   console.log(chalk.green('Project initializing...'));
 
   execSync(`cd ${kakuninConfigPath} && npm i && npm run kakunin init`, { stdio: 'inherit' });
+
+  prepareStepDefinitions(kakuninConfigPath);
 
   console.log(chalk.inverse.green.bold('Project ready.'));
 };

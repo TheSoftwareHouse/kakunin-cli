@@ -28,21 +28,22 @@
     "units": "jest  --no-cache"
   },
   "devDependencies": {
-    "@types/latest-version": "^4.0.0",
-    "@types/open": "0.0.29",
-    "@types/yargs": "^12.0.8",
-    "@types/node": "^11.9.4",
     "@types/chalk": "^2.2.0",
-    "@types/node-fetch": "^2.1.6",
     "@types/jest": "^24.0.6",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.2.4",
+    "@types/latest-version": "^4.0.0",
+    "@types/node": "^11.9.4",
+    "@types/node-fetch": "^2.1.6",
+    "@types/open": "0.0.29",
+    "@types/shelljs": "^0.8.5",
+    "@types/yargs": "^12.0.8",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
-    "tslint-sonarts": "^1.6.0"
+    "tslint-sonarts": "^1.6.0",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
     "chalk": "^2.4.2",
@@ -51,6 +52,7 @@
     "latest-version": "^3.1.0",
     "node-fetch": "^2.3.0",
     "open": "0.0.5",
+    "shelljs": "^0.8.3",
     "yargs": "^12.0.5"
   },
   "lint-staged": {
