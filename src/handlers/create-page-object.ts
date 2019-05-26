@@ -1,15 +1,15 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import sh = require('shelljs');
+import _ = require('lodash');
 
 export const createPageObject = (pageName: string, pageUrl: string) => {
   const path = sh.pwd();
-  const pageNameUpperCase = pageName.charAt(0).toUpperCase();
-  const pageNameWithoutFirstLetter = pageName.slice(1);
+  const properPageName = _.upperFirst(_.camelCase(`${pageName}`));
 
   const pageObjectTemplate: string = `const { BasePage } = require('kakunin');
 
-  class ${pageNameUpperCase + pageNameWithoutFirstLetter}Page extends BasePage {
+  class ${properPageName}Page extends BasePage {
     constructor() {
       super();
   
@@ -17,7 +17,7 @@ export const createPageObject = (pageName: string, pageUrl: string) => {
     }
   }
   
-  module.exports = ${pageNameUpperCase + pageNameWithoutFirstLetter}Page;`;
+  module.exports = ${properPageName}Page;`;
 
   writeFileSync(resolve(`${path}/pages`, `${pageName}.js`), pageObjectTemplate);
 };
