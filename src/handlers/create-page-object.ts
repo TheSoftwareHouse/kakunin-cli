@@ -2,6 +2,7 @@ import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import sh = require('shelljs');
 import _ = require('lodash');
+import prettier = require('prettier');
 
 export const createPageObject = (pageName: string, pageUrl: string) => {
   const path = sh.pwd();
@@ -19,5 +20,10 @@ export const createPageObject = (pageName: string, pageUrl: string) => {
   
   module.exports = ${properPageName}Page;`;
 
-  writeFileSync(resolve(`${path}/pages`, `${pageName}.js`), pageObjectTemplate);
+  if (sh.test('-e', `${path}/pages/${pageName}.js`) === false) {
+    const formattedFile = prettier.format(pageObjectTemplate, { parser: 'typescript' });
+    writeFileSync(resolve(`${path}/pages`, `${pageName}.js`), formattedFile);
+  } else {
+    throw Error('file already exist');
+  }
 };
