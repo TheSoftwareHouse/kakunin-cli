@@ -7,7 +7,7 @@ export const prepareStepDefinitions = (directory: string) => {
   const operatingSystem = process.platform;
 
   if (operatingSystem === 'darwin' || operatingSystem === 'linux') {
-    console.log(chalk.inverse.green.bold('Installing symlinks for ' + operatingSystem + ' system'));
+    console.log(chalk.inverse.green.bold(`Installing symlinks for ${operatingSystem} system`));
     sh.cd(`${directory}/step_definitions`);
 
     osxSymlinks.forEach(element => {
@@ -17,7 +17,7 @@ export const prepareStepDefinitions = (directory: string) => {
   }
 
   if (operatingSystem === 'win32') {
-    console.log(chalk.inverse.green.bold('Installing symlinks for ' + operatingSystem + ' system'));
+    console.log(chalk.inverse.green.bold(`Installing symlinks for ${operatingSystem} system`));
     sh.cd(`${directory}/step_definitions`);
 
     winSymlinks.forEach(element => {
