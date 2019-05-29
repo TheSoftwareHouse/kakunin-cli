@@ -1,5 +1,5 @@
 import { versionExist } from './create-project';
-import { getVersionConfig } from './handlers/versionManager';
+import { getVersionConfig } from './handlers/version-manager';
 
 describe('Version exist', () => {
   it('returns true if a version of kakunin exists', async () => {
