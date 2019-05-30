@@ -31,6 +31,7 @@
     "@types/chalk": "^2.2.0",
     "@types/jest": "^24.0.6",
     "@types/latest-version": "^4.0.0",
+    "@types/lodash": "^4.14.132",
     "@types/node": "^11.9.4",
     "@types/node-fetch": "^2.1.6",
     "@types/open": "0.0.29",
@@ -46,10 +47,12 @@
     "typescript": "^3.2.4"
   },
   "dependencies": {
+    "@types/prettier": "^1.16.4",
     "chalk": "^2.4.2",
     "compare-versions": "^3.4.0",
     "jest": "^24.1.0",
     "latest-version": "^3.1.0",
+    "lodash": "^4.17.11",
     "node-fetch": "^2.3.0",
     "open": "0.0.5",
     "shelljs": "^0.8.3",
