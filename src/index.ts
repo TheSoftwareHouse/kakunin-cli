@@ -4,7 +4,8 @@ import { createProject, versionExist } from './create-project';
 import { openDocs as docs } from './docs';
 import * as latestVersion from 'latest-version';
 import chalk from 'chalk';
-import { createPageObject } from '../src/handlers/create-page-object';
+import { generateFiles } from './handlers/generate-files';
+
 // tslint:disable-next-line
 yargs
   .usage('Usage: kakunin-cli <command>')
@@ -63,11 +64,48 @@ yargs
           describe: 'Url of your page object',
           demandOption: true,
           string: true,
+        })
+        .option('kakunin', {
+          alias: 'k',
+          describe: 'Version of kakunin which you are using',
+          demandOption: false,
+          string: true,
         });
     },
-    argv => {
+    async argv => {
       console.log(chalk.inverse.green.bold(`creating page object...`));
-      createPageObject(argv.name, argv.pageUrl);
+
+      const exists = argv.kakunin ? await versionExist(argv.kakunin) : false;
+      const version = exists ? argv.kakunin : await latestVersion('kakunin');
+
+      generateFiles({ fileType: 'pageObject', fileName: argv.name, pageUrl: argv.pageUrl }, version);
+    }
+  )
+  .command(
+    ['create-generator <name>'],
+    'Create data generator template in project directory',
+    (args: yargs.Argv) => {
+      return yargs
+        .option('name', {
+          alias: 'n',
+          describe: 'Name of your data generator',
+          demandOption: true,
+          string: true,
+        })
+        .option('kakunin', {
+          alias: 'k',
+          describe: 'Version of kakunin which you are using',
+          demandOption: false,
+          string: true,
+        });
+    },
+    async argv => {
+      console.log(chalk.inverse.green.bold(`creating data generator template...`));
+
+      const exists = argv.kakunin ? await versionExist(argv.kakunin) : false;
+      const version = exists ? argv.kakunin : await latestVersion('kakunin');
+
+      generateFiles({ fileType: 'generator', fileName: argv.name }, version);
     }
   )
   .help('?')

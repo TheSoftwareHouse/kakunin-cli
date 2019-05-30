@@ -21,7 +21,7 @@ describe('Get Version Config', () => {
       main: 'index.js',
       name: 'my_app',
       scripts: { kakunin: 'cross-env NODE_ENV=prod kakunin' },
-      version: '2.6.1',
+      version: '1.0.0',
     });
   });
 
@@ -34,7 +34,7 @@ describe('Get Version Config', () => {
       main: 'index.js',
       name: 'my_app',
       scripts: { kakunin: 'cross-env NODE_ENV=prod kakunin' },
-      version: '3.0.0',
+      version: '1.0.0',
     });
   });
 });
