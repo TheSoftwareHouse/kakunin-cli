@@ -14,7 +14,7 @@ export class Version261 {
       packageJson: {
         ...basePackageJSON,
         name: name,
-        version: '2.6.1',
+        version: '1.0.0',
         dependencies: {
           'cross-env': '^5.2.0',
           kakunin: 'latest',
