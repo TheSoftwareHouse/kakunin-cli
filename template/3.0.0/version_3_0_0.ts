@@ -3,7 +3,7 @@ import * as compareVersions from 'compare-versions';
 
 export class Version300 {
   public isSatisfiedBy(version: string) {
-    if( compareVersions(version, '3.0.0') >= 0 ) {
+    if (compareVersions(version, '3.0.0') >= 0) {
       return true;
     }
     return false;
@@ -24,5 +24,23 @@ export class Version300 {
     };
 
     return config;
+  }
+
+  public pageObjectTemplate(name: string, pageUrl: string) {
+
+    const template = {
+      pageObject: '3.0.0'
+    };
+
+    return template;
+  }
+
+  public generatorTemplate(name: string) {
+
+    const template = {
+      generator: '3.0.0'
+    };
+
+    return template;
   }
 }
