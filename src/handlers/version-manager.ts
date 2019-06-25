@@ -35,4 +35,7 @@ export const getVersionTemplateFiles = (
   if (fileType === fileTypes.pageObject) {
     return { templateFile: matchingTemplates.pageObjectTemplate(fileName, pageUrl), filePath: `${path}/pages` };
   }
+  if (fileType === fileTypes.matcher) {
+    return { templateFile: matchingTemplates.matcherTemplate(fileName), filePath: `${path}/matchers` };
+  }
 };

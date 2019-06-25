@@ -9,6 +9,7 @@ import { generateFiles } from './handlers/generate-files';
 export const fileTypes = {
   pageObject: 'pageObject',
   generator: 'generator',
+  matcher: 'matcher',
 };
 
 // tslint:disable-next-line
@@ -111,6 +112,33 @@ yargs
       const version = exists ? argv.kakunin : await latestVersion('kakunin');
 
       generateFiles({ fileType: fileTypes.generator, fileName: argv.name }, version);
+    }
+  )
+  .command(
+    ['create-matcher <name>'],
+    'Create matcher in project directory',
+    (args: yargs.Argv) => {
+      return yargs
+        .option('name', {
+          alias: 'n',
+          describe: 'Name of your matcher',
+          demandOption: true,
+          string: true,
+        })
+        .option('kakunin', {
+          alias: 'k',
+          describe: 'Version of kakunin which you are using',
+          demandOption: false,
+          string: true,
+        });
+    },
+    async argv => {
+      console.log(chalk.inverse.green.bold(`creating matcher...`));
+
+      const exists = argv.kakunin ? await versionExist(argv.kakunin) : false;
+      const version = exists ? argv.kakunin : await latestVersion('kakunin');
+
+      generateFiles({ fileType: fileTypes.matcher, fileName: argv.name }, version);
     }
   )
   .help('?')
