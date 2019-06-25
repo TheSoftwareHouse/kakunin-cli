@@ -9,3 +9,5 @@ export const basePackageJSON = {
   license: 'ISC',
   dependencies: {},
 };
+
+
