@@ -13,7 +13,7 @@ type FileProperties = {
 export const generateFiles = (properties: FileProperties, version: string) => {
   const fileConfig = getVersionTemplateFiles(properties.fileType, properties.fileName, properties.pageUrl, version);
 
-  if (fs.existsSync(`${fileConfig.filePath}/${properties.fileName}.js`) === false) {
+  if (!fs.existsSync(`${fileConfig.filePath}/${properties.fileName}.js`)) {
     const formattedFile = prettier.format(fileConfig.templateFile, { parser: 'typescript' });
     writeFileSync(resolve(`${fileConfig.filePath}`, `${properties.fileName}.js`), formattedFile);
   } else {

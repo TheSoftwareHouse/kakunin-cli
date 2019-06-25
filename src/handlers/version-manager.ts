@@ -1,5 +1,6 @@
 import { Version261 } from '../../template/2.6.1/version_2_6_1';
 import { Version300 } from '../../template/3.0.0/version_3_0_0';
+import { fileTypes } from '../index';
 
 interface FileConfig {
   templateFile: string;
@@ -28,10 +29,10 @@ export const getVersionTemplateFiles = (
   if (!matchingTemplates) {
     throw new Error(`No matching version for ${version}`);
   }
-  if (fileType === 'generator') {
+  if (fileType === fileTypes.generator) {
     return { templateFile: matchingTemplates.generatorTemplate(fileName), filePath: `${path}/generators` };
   }
-  if (fileType === 'pageObject') {
+  if (fileType === fileTypes.pageObject) {
     return { templateFile: matchingTemplates.pageObjectTemplate(fileName, pageUrl), filePath: `${path}/pages` };
   }
 };
