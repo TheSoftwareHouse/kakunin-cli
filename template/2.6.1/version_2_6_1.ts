@@ -68,4 +68,31 @@ export class Version261 {
     };
     return template(filename);
   }
+
+  public matcherTemplate(filename: string) {
+    const template = (name: string) => {
+      const properName = _.upperFirst(_.camelCase(`${name}`));
+
+      return `const { matchers } = require('kakunin');
+
+      class ${properName} {
+        isSatisfiedBy(prefix, name) {
+          return prefix === 'm:' && name === 'pending';
+        }
+       
+        match(protractorElement, matcherName) {
+          return protractorElement.getText().then((value) => {
+            if (value === 'pending') {
+              return true;
+            }
+            
+            return Promise.reject(\`Matcher ${properName} could not match value on element "\${protractorElement.locator()}". Expected: "pending", given: "\${value}"\`);
+          }); 
+        }
+      }
+      
+      matchers.addMatcher(new ${properName}());`;
+    };
+    return template(filename);
+  }
 }
