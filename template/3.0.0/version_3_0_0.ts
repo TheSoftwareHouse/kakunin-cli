@@ -28,23 +28,23 @@ export class Version300 {
     return config;
   }
 
-  public pageObjectTemplate(fileName: string, pageUrl: string) {
-    const template = (name: string, pageUrl: string) => {
+  public pageObjectTemplate(fileName: string) {
+    const template = (name: string) => {
       const properName = _.upperFirst(_.camelCase(`${name}`));
 
       return `const { BasePage } = require('kakunin');
-        class ${properName}Page extends BasePage {
-          constructor() {
-            super();
-        
-            this.url = '/${pageUrl}';
-          }
+      class ${properName}Page extends BasePage {
+        constructor() {
+          super();
+      
+          this.myElement = element(by.css('.some-elemnt'));
         }
-        
-        module.exports = ${properName}Page;`;
+      }
+      
+      module.exports = ${properName}Page;`;
     };
 
-    return template(fileName, pageUrl);
+    return template(fileName);
   }
 
   public generatorTemplate(filename: string) {

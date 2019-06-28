@@ -10,6 +10,7 @@ export const fileTypes = {
   pageObject: 'pageObject',
   generator: 'generator',
   matcher: 'matcher',
+  formHandler: 'formHandler',
 };
 
 // tslint:disable-next-line
@@ -65,12 +66,6 @@ yargs
           demandOption: true,
           string: true,
         })
-        .option('pageUrl', {
-          alias: 'url',
-          describe: 'Url of your page object',
-          demandOption: true,
-          string: true,
-        })
         .option('kakunin', {
           alias: 'k',
           describe: 'Version of kakunin which you are using',
@@ -84,7 +79,7 @@ yargs
       const exists = argv.kakunin ? await versionExist(argv.kakunin) : false;
       const version = exists ? argv.kakunin : await latestVersion('kakunin');
 
-      generateFiles({ fileType: fileTypes.pageObject, fileName: argv.name, pageUrl: argv.pageUrl }, version);
+      generateFiles({ fileType: fileTypes.pageObject, fileName: argv.name }, version);
     }
   )
   .command(

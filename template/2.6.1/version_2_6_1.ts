@@ -30,8 +30,8 @@ export class Version261 {
     return config;
   }
 
-  public pageObjectTemplate(fileName: string, pageUrl: string) {
-    const template = (name: string, pageUrl: string) => {
+  public pageObjectTemplate(fileName: string) {
+    const template = (name: string) => {
       const properName = _.upperFirst(_.camelCase(`${name}`));
 
       return `const { BasePage } = require('kakunin');
@@ -39,14 +39,14 @@ export class Version261 {
           constructor() {
             super();
         
-            this.url = '/${pageUrl}';
+            this.myElement = element(by.css('.some-elemnt'));
           }
         }
         
         module.exports = ${properName}Page;`;
     };
 
-    return template(fileName, pageUrl);
+    return template(fileName);
   }
 
   public generatorTemplate(filename: string) {
@@ -92,6 +92,52 @@ export class Version261 {
       }
       
       matchers.addMatcher(new ${properName}());`;
+    };
+    return template(filename);
+  }
+
+  public formHandlerTemplate(filename: string) {
+    const template = (name: string) => {
+      const properName = _.upperFirst(_.camelCase(`${name}`));
+
+      return `const { handlers } = require('kakunin');
+
+      const ${properName} {
+        constructor() {
+          this.registerFieldType = false;
+          this.fieldType = 'default';
+        }
+      
+        isSatisfiedBy(element, elementName) {
+          return Promise.resolve(elementName === 'someElementName');
+        }
+       
+        handleFill(page, elementName, desiredValue) {
+          return page[elementName].isDisplayed()
+            .then(function () {
+              return page[elementName].clear().then(function () {
+                return page[elementName].sendKeys(desiredValue);
+              });
+            }
+          );
+        }
+      
+        handleCheck(page, elementName, desiredValue) {
+          return page[elementName].isDisplayed()
+            .then(function () {
+              return page[elementName].getAttribute('value').then(function (value) {
+                if (value === desiredValue) {
+                  return Promise.resolve();
+                }
+      
+                return Promise.reject(\`Expected \${desiredValue} got \${value} for text input element \${elementName}\`);
+              });
+            }
+          );
+        }
+      };
+      
+      handlers.addHandler(new ${properName}());`;
     };
     return template(filename);
   }
