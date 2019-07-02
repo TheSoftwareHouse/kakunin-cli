@@ -1,6 +1,6 @@
 import { Version261 } from '../../template/2.6.1/version_2_6_1';
 import { Version300 } from '../../template/3.0.0/version_3_0_0';
-import { fileTypes } from '../index';
+import { generateTemplate } from './generate-template';
 
 interface FileConfig {
   templateFile: string;
@@ -18,24 +18,11 @@ export const getVersionConfig = (version: string, name: string) => {
   return matchingConfig.create(name);
 };
 
-export const getVersionTemplateFiles = (
-  fileType: string,
-  fileName: string,
-  pageUrl: string,
-  version: string
-): FileConfig => {
-  const path = process.cwd();
+export const getVersionTemplateFiles = (fileType: string, fileName: string, version: string): FileConfig => {
   const matchingTemplates = availableVersions.find(filesVersion => filesVersion.isSatisfiedBy(version));
   if (!matchingTemplates) {
     throw new Error(`No matching version for ${version}`);
-  }
-  if (fileType === fileTypes.generator) {
-    return { templateFile: matchingTemplates.generatorTemplate(fileName), filePath: `${path}/generators` };
-  }
-  if (fileType === fileTypes.pageObject) {
-    return { templateFile: matchingTemplates.pageObjectTemplate(fileName, pageUrl), filePath: `${path}/pages` };
-  }
-  if (fileType === fileTypes.matcher) {
-    return { templateFile: matchingTemplates.matcherTemplate(fileName), filePath: `${path}/matchers` };
+  } else {
+    return generateTemplate(fileType, fileName, matchingTemplates);
   }
 };
