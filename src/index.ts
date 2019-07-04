@@ -57,7 +57,7 @@ yargs
   .command(['docs', 'd', 'documentation'], 'Open kakunin documentation', (): any => {}, docs)
   .command(
     ['create-page <name>'],
-    'Create page object in project directory',
+    'Create page object template in project directory',
     (args: yargs.Argv) => {
       return yargs
         .option('name', {
@@ -111,7 +111,7 @@ yargs
   )
   .command(
     ['create-matcher <name>'],
-    'Create matcher in project directory',
+    'Create matcher template in project directory',
     (args: yargs.Argv) => {
       return yargs
         .option('name', {
