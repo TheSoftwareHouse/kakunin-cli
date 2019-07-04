@@ -1,6 +1,6 @@
 {
   "name": "kakunin-cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Command-line interface for Kakunin E2E framework",
   "homepage": "https://thesoftwarehouse.github.io/Kakunin/",
   "repository": {
